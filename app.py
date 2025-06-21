@@ -3,7 +3,7 @@ from googletrans import Translator
 
 app = Flask(__name__)
 translator = Translator()
-
+#note
 @app.route('/')
 def index():
     with open("index.html", "r", encoding="utf-8") as f:
