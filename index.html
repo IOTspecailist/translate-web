@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>번역기</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>한국어 ➤ 영어 번역기</h1>
+    <form id="translate-form">
+        <input type="text" id="text-input" placeholder="번역할 문장을 입력하세요" />
+        <button type="submit">번역하기</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('translate-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = document.getElementById('text-input').value;
+            const response = await fetch('/translate', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ text })
+            });
+            const data = await response.json();
+            document.getElementById('result').innerText = data.translated;
+        });
+    </script>
+</body>
+</html>
