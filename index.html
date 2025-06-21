@@ -13,6 +13,13 @@
     </form>
     <div id="result"></div>
 
+    <h2>이메일 형식 검사</h2>
+    <form id="email-form">
+        <input type="text" id="email-input" placeholder="이메일을 입력하세요" />
+        <button type="submit">검사하기</button>
+    </form>
+    <div id="email-result"></div>
+
     <script>
         document.getElementById('translate-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -24,6 +31,18 @@
             });
             const data = await response.json();
             document.getElementById('result').innerText = data.translated;
+        });
+
+        document.getElementById('email-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value;
+            const response = await fetch('/check_email', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+            document.getElementById('email-result').innerText = data.result;
         });
     </script>
 </body>
